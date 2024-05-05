@@ -1,3 +1,4 @@
+// variables
 let userInfo = document.querySelector("#user_info");
 let userDom = document.querySelector("#user");
 let links = document.querySelector("#links");
@@ -17,8 +18,14 @@ logoutBtn.addEventListener("click" , function(){
     }, 1500)
 })
 
-// Define Product
+// Define Product variables
 let productDom = document.querySelector(".products")
+let cartProductMenu = document.querySelector(".carts-products ")
+let cartProductDivDom = document.querySelector(".carts-products div")
+let badgeDom = document.querySelector(".badge")
+let shoppingCartIcon = document.querySelector(".shoppingCart")
+
+// Data Products
 let products = [
     {
         id : 1,
@@ -92,6 +99,7 @@ let products = [
     },
 ];
 
+// ProductsUI
 function drawProductUi (){
     let productsUI = products.map((item) => {
         return `
@@ -113,11 +121,18 @@ function drawProductUi (){
 }
 drawProductUi()
 
+// Add products to cart
 function addedToCart(id){
     let choosenItem = products.find((item)=>item.id === id);
-    console.log(choosenItem)
+    cartProductDivDom.innerHTML +=`
+         <p>${choosenItem.title}</p>
+    `;
+    let cartProductItems = document.querySelectorAll(".carts-products div p")
+    badgeDom.style.display = "block";
+    badgeDom.innerHTML = cartProductItems.length;
 }
 
+// shopping cartList page 
 function checkLogedUser(){
     if(localStorage.getItem("username")){
             window.location ="cartProducts.html"     
@@ -125,3 +140,16 @@ function checkLogedUser(){
         window.location = "login.html"
     }
 }
+
+// open and close shopping cart Icon 
+function openCartMenu(){
+    if(cartProductDivDom.innerHTML != ""){
+        if(cartProductMenu.style.display== "block"){
+            cartProductMenu.style.display= "none"
+        }else{
+            cartProductMenu.style.display= "block";
+        }        
+    }   
+}
+
+shoppingCartIcon.addEventListener("click", openCartMenu)
