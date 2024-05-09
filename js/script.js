@@ -122,24 +122,30 @@ function drawProductUi (){
 drawProductUi()
 
 // Add products to cart
+
+let addedItem = [];
+
 function addedToCart(id){
+    if(localStorage.getItem("username")){
+        window.location ="cartProducts.html"     
+    }else{
+    window.location = "login.html"
+    };
+
     let choosenItem = products.find((item)=>item.id === id);
     cartProductDivDom.innerHTML +=`
          <p>${choosenItem.title}</p>
     `;
+    
+    addedItem = [...addedItem , choosenItem];
+    localStorage.setItem("productTnCart", JSON.stringify(addedItem));
+
     let cartProductItems = document.querySelectorAll(".carts-products div p")
     badgeDom.style.display = "block";
     badgeDom.innerHTML = cartProductItems.length;
 }
 
-// shopping cartList page 
-function checkLogedUser(){
-    if(localStorage.getItem("username")){
-            window.location ="cartProducts.html"     
-    }else{
-        window.location = "login.html"
-    }
-}
+
 
 // open and close shopping cart Icon 
 function openCartMenu(){
