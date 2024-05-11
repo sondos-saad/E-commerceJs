@@ -1,22 +1,4 @@
-// variables
-let userInfo = document.querySelector("#user_info");
-let userDom = document.querySelector("#user");
-let links = document.querySelector("#links");
-let logoutBtn = document.querySelector("#logout");
 
-let username = localStorage.getItem("username")
-if(username){
-    links.remove();
-    userInfo.style.display = "flex ";
-    userDom.innerHTML = username;
-}
-
-logoutBtn.addEventListener("click" , function(){
-    localStorage.clear();
-    setTimeout(() =>{
-      window.location = "register.html"  
-    }, 1500)
-})
 
 // Define Product variables
 let productDom = document.querySelector(".products")
@@ -123,26 +105,32 @@ drawProductUi()
 
 // Add products to cart
 
-let addedItem = [];
+let addedItem = localStorage.getItem("productTnCart") ? JSON.parse(localStorage.getItem("productTnCart")) : [];
+
+if(addedItem){
+    addedItem.map((item) => {
+        cartProductDivDom.innerHTML += `  <p>${item.title}</p> `
+    });
+    badgeDom.style.display = "block";
+    badgeDom.innerHTML = addedItem.length;
+}
 
 function addedToCart(id){
     if(localStorage.getItem("username")){
-        window.location ="cartProducts.html"     
+        let choosenItem = products.find((item)=>item.id === id);
+        cartProductDivDom.innerHTML +=`
+             <p>${choosenItem.title}</p>
+        `;
+
+        addedItem = [...addedItem , choosenItem];
+        localStorage.setItem("productTnCart", JSON.stringify(addedItem));
+
+        let cartProductItems = document.querySelectorAll(".carts-products div p")
+        badgeDom.style.display = "block";
+        badgeDom.innerHTML = cartProductItems.length;
     }else{
-    window.location = "login.html"
-    };
-
-    let choosenItem = products.find((item)=>item.id === id);
-    cartProductDivDom.innerHTML +=`
-         <p>${choosenItem.title}</p>
-    `;
-    
-    addedItem = [...addedItem , choosenItem];
-    localStorage.setItem("productTnCart", JSON.stringify(addedItem));
-
-    let cartProductItems = document.querySelectorAll(".carts-products div p")
-    badgeDom.style.display = "block";
-    badgeDom.innerHTML = cartProductItems.length;
+        window.location = "login.html"
+    }   
 }
 
 
