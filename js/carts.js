@@ -1,4 +1,4 @@
-let productInCart = localStorage.getItem("productTnCart");
+let productInCart = localStorage.getItem("productInCart");
 let productDom = document.querySelector(".products");
 
 if(productInCart){
@@ -23,4 +23,14 @@ function drawCartProductUi (products){
         `
     });
     productDom.innerHTML = productsUI
+}
+
+// remove item from cart
+function removeFromCart (id) {
+    if(productInCart){
+        let items = JSON.parse(productInCart);
+       let filteredItems = items.filter((item) => item.id !== id );
+       drawCartProductUi(filteredItems)
+        localStorage.setItem("productInCart" , JSON.stringify(filteredItems))
+    }
 }
