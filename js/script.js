@@ -6,7 +6,7 @@ let cartProductMenu = document.querySelector(".carts-products ")
 let cartProductDivDom = document.querySelector(".carts-products div")
 let badgeDom = document.querySelector(".badge")
 let shoppingCartIcon = document.querySelector(".shoppingCart")
-
+let products = JSON.parse(localStorage.getItem("products"));
 
 
 // ProductsUI
@@ -16,7 +16,7 @@ function drawProductUi (){
             <div class="product-item">
                 <img src="${item.image}" alt="" class="product_item_image">
                 <div class="product_item_desc">
-                    <h2>${item.title}</h2>
+                    <h2 onclick= "saveItemData(${item.id})">${item.title}</h2>
                     <p>${item.desc}</p>
                     <span>Price: ${item.price}</span>
                 </div>
@@ -76,4 +76,19 @@ function openCartMenu(){
     }   
 }
 
-shoppingCartIcon.addEventListener("click", openCartMenu)
+shoppingCartIcon.addEventListener("click", openCartMenu);
+
+function saveItemData(id){
+    localStorage.setItem("productId", id);
+    window.location = "cartDetails.html";
+}
+
+function search(title , myArray){
+   for(let i = 0; i < myArray.length; i++){
+       if(myArray[i].title === title){
+          console.log(myArray[i]);
+       }
+   }
+
+}
+search("Laptop" , products)

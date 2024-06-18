@@ -1,5 +1,6 @@
 
 let productDom = document.querySelector(".products");
+let noProductsDom = document.querySelector(".no-products");
 
 if(localStorage.getItem("productInCart")){
     let items = JSON.parse(localStorage.getItem("productInCart"))
@@ -7,6 +8,9 @@ if(localStorage.getItem("productInCart")){
 }
 
 function drawCartProductUi (allProducts = []){
+    if( JSON.parse(localStorage.getItem("productInCart")).length === 0)  
+        noProductsDom.innerHTML = "No Products";
+
     let products = JSON.parse(localStorage.getItem("productInCart")) || allProducts;
     let productsUI = products.map((item) => {
         return `
