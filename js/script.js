@@ -10,7 +10,8 @@ let products = JSON.parse(localStorage.getItem("products"));
 
 
 // ProductsUI
-function drawProductUi (){
+let drawProductUi;
+( drawProductUi = function (products = []) {
     let productsUI = products.map((item) => {
         return `
             <div class="product-item">
@@ -28,8 +29,8 @@ function drawProductUi (){
         `
     });
     productDom.innerHTML = productsUI
-}
-drawProductUi()
+})(JSON.parse(localStorage.getItem("products")));
+
 
 // Add products to cart
 
@@ -83,12 +84,19 @@ function saveItemData(id){
     window.location = "cartDetails.html";
 }
 
-function search(title , myArray){
-   for(let i = 0; i < myArray.length; i++){
-       if(myArray[i].title === title){
-          console.log(myArray[i]);
-       }
-   }
+// search function
+let input =document.getElementById("search");
 
+input.addEventListener("keyup" , function(e){
+    if(e.key === "Enter"){ 
+        search(e.target.value , products)
+    }
+    if(e.target.value.trim() == ""){
+        drawProductUi(products)
+    }
+})
+
+function search(title , myArray){
+    let arr = myArray.filter((item) => item.title === title);
+    drawProductUi(arr);
 }
-search("Laptop" , products)
