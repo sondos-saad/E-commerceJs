@@ -46,12 +46,16 @@ if(addedItem){
     badgeDom.innerHTML = addedItem.length;
 }
 
+let allItems = [];
 function addedToCart(id){
     if(localStorage.getItem("username")){
         let choosenItem = products.find((item)=>item.id === id);
-        cartProductDivDom.innerHTML +=`
-             <p>${choosenItem.title}</p>
-        `;
+       let items = allItems.find((i) => i.id === choosenItem.id);
+       if(items){   
+        choosenItem.quantity += 1;
+       }else{
+        allItems.push(choosenItem);
+       }
 
         addedItem = [...addedItem , choosenItem];
         localStorage.setItem("productInCart", JSON.stringify(addedItem));
@@ -88,15 +92,13 @@ function saveItemData(id){
 let input =document.getElementById("search");
 
 input.addEventListener("keyup" , function(e){
-    if(e.key === "Enter"){ 
-        search(e.target.value , products)
-    }
+        search(e.target.value , products);
     if(e.target.value.trim() == ""){
         drawProductUi(products)
     }
 })
 
 function search(title , myArray){
-    let arr = myArray.filter((item) => item.title === title);
+    let arr = myArray.filter((item) => item.title.indexOf(title) !== -1);
     drawProductUi(arr);
 }
