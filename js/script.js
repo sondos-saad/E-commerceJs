@@ -50,15 +50,23 @@ let allItems = [];
 function addedToCart(id){
     if(localStorage.getItem("username")){
         let choosenItem = products.find((item)=>item.id === id);
-       let items = allItems.find((i) => i.id === choosenItem.id);
-       if(items){   
+       let item = allItems.find((i) => i.id === choosenItem.id);
+       if(item){   
         choosenItem.quantity += 1;
        }else{
         allItems.push(choosenItem);
        }
 
+       cartProductDivDom.innerHTML = "";
+       allItems.forEach((item) => { 
+        cartProductDivDom.innerHTML += `  <p>${item.title} ${item.quantity}</p> `
+    });
+
         addedItem = [...addedItem , choosenItem];
-        localStorage.setItem("productInCart", JSON.stringify(addedItem));
+
+       let uniqueProducts = getUniqueArr(addedItem , "id");
+
+        localStorage.setItem("productInCart", JSON.stringify(uniqueProducts));
 
         let cartProductItems = document.querySelectorAll(".carts-products div p")
         badgeDom.style.display = "block";
@@ -68,7 +76,15 @@ function addedToCart(id){
     }   
 }
 
+function getUniqueArr(arr , filterType){
+    let unique = arr
+    .map((item) => item[filterType])
+    .map((item, i, final) => final.indexOf(item) === i && i)
+    .filter((item) => arr[item])
+    .map((item) => arr[item]);
 
+    return unique;
+}
 
 // open and close shopping cart Icon 
 function openCartMenu(){

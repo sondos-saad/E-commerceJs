@@ -37,14 +37,16 @@ let productsDB = [
         title:"Laptop",
         desc:"Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
         price: "250$",
-        image:"./image/laptop.jpg"
+        image:"./image/laptop.jpg",
+        quantity : 1
     },
     {
         id : 6,
         title:"Laptop",
         desc:"Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
         price: "350$",
-        image:"./image/laptop2.jpg"
+        image:"./image/laptop2.jpg",
+        quantity : 1
     },
     {
         id : 7,
