@@ -81,4 +81,4 @@ let productsDB = [
         quantity : 1
     },
 ];
-localStorage.setItem("products" , JSON.stringify(productsDB));
+// localStorage.setItem("products" , JSON.stringify(productsDB));

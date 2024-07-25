@@ -6,7 +6,7 @@ let cartProductMenu = document.querySelector(".carts-products ")
 let cartProductDivDom = document.querySelector(".carts-products div")
 let badgeDom = document.querySelector(".badge")
 let shoppingCartIcon = document.querySelector(".shoppingCart")
-let products = JSON.parse(localStorage.getItem("products"));
+let products = productsDB;
 
 
 // ProductsUI
@@ -23,13 +23,13 @@ let drawProductUi;
                 </div>
                 <div class="product_item_actions">
                     <button class="add-to-cart" onclick= "addedToCart(${item.id})">Add To Cart</button>
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart" style="color: ${item.liked ? "red" : "black"}" onclick= "addToFavorite(${item.id})"></i>
                 </div>
             </div>
         `
     });
-    productDom.innerHTML = productsUI
-})(JSON.parse(localStorage.getItem("products")));
+    productDom.innerHTML = productsUI.join("");
+})(JSON.parse(localStorage.getItem("products")) || products);
 
 
 // Add products to cart
@@ -117,4 +117,27 @@ input.addEventListener("keyup" , function(e){
 function search(title , myArray){
     let arr = myArray.filter((item) => item.title.indexOf(title) !== -1);
     drawProductUi(arr);
+}
+
+// add to favoret
+// let favoriteItems = [];
+let favoriteItems = localStorage.getItem("productFavorite") ? JSON.parse(localStorage.getItem("productFavorite")) : [];
+
+function addToFavorite(id){
+    if(localStorage.getItem("username")){
+        let choosenItem = products.find((item)=>item.id === id);
+        choosenItem.liked = true;
+        favoriteItems = [...favoriteItems , choosenItem];
+        let uniqueProducts = getUniqueArr(favoriteItems , "id");
+        localStorage.setItem("productFavorite", JSON.stringify(uniqueProducts));
+        products.map((item) => {
+            if(item.id === choosenItem.id){
+                item.liked = true;
+            }
+        });
+        localStorage.setItem("products", JSON.stringify(products));
+        drawProductUi(products);
+    }else{
+        window.location = "login.html"
+    }   
 }

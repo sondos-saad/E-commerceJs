@@ -11,5 +11,6 @@ itemDom.innerHTML = `
     <img src="${productDetails.image}" alt="">
     <h2>${productDetails.title}</h2>
     <p>${productDetails.desc}</p>
-    <span>${productDetails.price}</span>
+    <span>Price: ${productDetails.price}</span> <br>
+    <span>Quantity: ${productDetails.quantity}</span>
 `   

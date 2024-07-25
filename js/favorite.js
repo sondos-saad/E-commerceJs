@@ -2,16 +2,11 @@
 let productDom = document.querySelector(".products");
 let noProductsDom = document.querySelector(".no-products");
 
-if(localStorage.getItem("productInCart")){
-    let items = JSON.parse(localStorage.getItem("productInCart"))
-    drawCartProductUi(items)
-}
-
-function drawCartProductUi (allProducts = []){
-    if( JSON.parse(localStorage.getItem("productInCart")).length === 0)  
+function drawFavoriteProductUi (allProducts = []){
+    if( JSON.parse(localStorage.getItem("productFavorite")).length === 0)  
         noProductsDom.innerHTML = "No Products";
 
-    let products = JSON.parse(localStorage.getItem("productInCart")) || allProducts;
+    let products = JSON.parse(localStorage.getItem("productFavorite")) || allProducts;
     let productsUI = products.map((item) => {
         return `
             <div class="product-item">
@@ -30,14 +25,14 @@ function drawCartProductUi (allProducts = []){
     });
     productDom.innerHTML = productsUI.join("");
 }
-drawCartProductUi()
-// remove item from cart
+drawFavoriteProductUi()
+//remove item from cart
 function removeFromCart (id) {
-    let productInCart = localStorage.getItem("productInCart");
-    if(productInCart){
-        let items = JSON.parse(productInCart);
+    let productFavorite = localStorage.getItem("productFavorite");
+    if(productFavorite){
+        let items = JSON.parse(productFavorite);
        let filteredItems = items.filter((item) => item.id !== id );
-        localStorage.setItem("productInCart" , JSON.stringify(filteredItems))
-        drawCartProductUi(filteredItems)
+        localStorage.setItem("productFavorite" , JSON.stringify(filteredItems))
+        drawFavoriteProductUi(filteredItems)
     }
 }
