@@ -49,24 +49,24 @@ if(addedItem){
 let allItems = [];
 function addedToCart(id){
     if(localStorage.getItem("username")){
-        let choosenItem = products.find((item)=>item.id === id);
-       let item = allItems.find((i) => i.id === choosenItem.id);
-       if(item){   
-        choosenItem.quantity += 1;
+        let product = products.find((item)=>item.id === id);
+       let isProductInCart = allItems.some((i) => i.id === product.id);
+       if(isProductInCart){  
+        addedItem = addedItem.map((item) => {
+            if(item.id === product.id){
+                item.quantity += 1;
+            }else{
+                return item
+            }
+        }); 
        }else{
-        allItems.push(choosenItem);
+        addedItem.push(product);
        }
-
        cartProductDivDom.innerHTML = "";
-       allItems.forEach((item) => { 
+       addedItem.forEach((item) => { 
         cartProductDivDom.innerHTML += `  <p>${item.title} ${item.quantity}</p> `
     });
-
-        addedItem = [...addedItem , choosenItem];
-
-       let uniqueProducts = getUniqueArr(addedItem , "id");
-
-        localStorage.setItem("productInCart", JSON.stringify(uniqueProducts));
+        localStorage.setItem("productInCart", JSON.stringify(addedItem));
 
         let cartProductItems = document.querySelectorAll(".carts-products div p")
         badgeDom.style.display = "block";
