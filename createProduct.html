@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Home</title>
+    <!-- font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- style css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/createProduct.css">
+
+    <!-- -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header_content">
+                <a href="index.html" class="brand">SHOPPING CART</a>
+                <nav>
+                    <ul id="links">
+                        <li>
+                            <a href="login.html">Sign In</a>
+                        </li>
+                        <li>
+                            <a href="register.html">Sign Up</a>
+                        </li>
+                    </ul>
+                    <ul id="user_info">
+                        <li><a href="#" id="user"> </a></li>
+                        <li><a href="favorite.html">Favorites </a></li>
+                        <li class="shoppingCart"> 
+                            <i class="fa-solid fa-cart-shopping"></i> 
+                            <span class="badge">1</span>
+                            <div class="carts-products">
+                                <div></div>
+                                <a href="cartProducts.html">View all</a>
+                            </div>
+                         </li>
+                        <li><a href="#" id="logout">Log out </a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+   </header> 
+   <section class="create-Product-page">
+        <div class="container">
+            <form>
+                <input type="text" placeholder="Product Name" id="productName"/> 
+                <input type="text" placeholder="Product Details" id="productDetails"/> 
+                <input type="number" placeholder="Product Price" id="productPrice"/> 
+                <button id="createProduct" type="submit">Create Product</button>
+             </form>
+        </div>
+    </section>
+
+    <script src="./js/user.js"></script>
+    <script src="./js/createProduct.js"></script>
+</body>
+</html>
